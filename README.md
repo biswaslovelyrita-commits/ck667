@@ -1,1 +1,737 @@
-Jili
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CK667 - গেমিং পোর্টাল</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0f1f;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        header {
+            background: #0f1424;
+            padding: 0.5rem 1rem;
+            border-bottom: 2px solid #ffd700;
+            height: 8vh;
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1rem;
+        }
+
+        .logo img {
+            height: 50px;
+            width: 50px;
+            border-radius: 0px;
+            border: 2px solid #ffd700;
+            box-shadow: 0 0 15px #ffd700;
+            transition: transform 0.3s ease;
+            object-fit: cover;
+        }
+
+        .logo img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px #ffd700;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ffd700;
+        }
+
+        .hero {
+            height: 12vh;
+            background: #0f1424;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-bottom: 1px solid #ffd70033;
+        }
+
+        .hero-content h1 {
+            font-size: 1.8rem;
+            color: #ffd700;
+        }
+
+        .hero-content p {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        .container {
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            width: 100%;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: #ffd700;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .top-banner {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 0.5rem auto;
+            background: linear-gradient(45deg, #0f1424, #1a1f35);
+            border: 3px solid #ffd700;
+            border-radius: 0px;
+            padding: 1rem 0;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .scrolling-text-container {
+            white-space: nowrap;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .scrolling-text {
+            display: inline-block;
+            animation: scrollRight 20s linear infinite;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ffd700;
+            text-shadow: 0 0 10px #ffd700;
+        }
+
+        .scrolling-text span {
+            margin-right: 4rem;
+            background: linear-gradient(45deg, #ffd700, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes scrollRight {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .banner-container {
+            width: 100%;
+            aspect-ratio: 16/9;
+            margin: 0 auto 1rem auto;
+            max-width: 800px;
+            border: 3px solid #ffd700;
+            border-radius: 0px;
+            overflow: hidden;
+            position: relative;
+            background: #0f1424;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .banner-slider {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .banner-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            animation: slideShow 15s infinite;
+        }
+
+        .banner-slide:nth-child(1) { animation-delay: 0s; background-image: url('https://i.supaimg.com/d49d3bf7-603d-4c3c-994d-bf49799555ad/cdbb69ed-6791-42bb-8e9b-f6034647e46e.png'); }
+        .banner-slide:nth-child(2) { animation-delay: 5s; background-image: url('https://i.supaimg.com/d49d3bf7-603d-4c3c-994d-bf49799555ad/84bc03fb-1089-4e98-a74a-dd33d152b384.png'); }
+        .banner-slide:nth-child(3) { animation-delay: 10s; background-image: url('https://i.supaimg.com/d49d3bf7-603d-4c3c-994d-bf49799555ad/6de9908a-5e67-49cd-92d1-635775bc66ba.jpg'); }
+
+        @keyframes slideShow {
+            0% { opacity: 0; }
+            5% { opacity: 1; }
+            33% { opacity: 1; }
+            38% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+
+        .banner-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 1rem;
+            color: white;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1rem;
+        }
+
+        .banner-text {
+            font-weight: bold;
+            color: #ffd700;
+            font-size: 1.2rem;
+        }
+
+        .banner-badge {
+            background: #ffd700;
+            color: #0a0f1f;
+            padding: 0.3rem 1rem;
+            border-radius: 0px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .banner-dots {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            z-index: 10;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 0px;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background: #ffd700;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.8rem;
+            margin: 1rem 0 2rem 0;
+        }
+
+        .game-card {
+            background: #0f1424;
+            border: 2px solid #ffd700;
+            border-radius: 0px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            height: 160px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        .game-card:hover {
+            transform: scale(1.02);
+            border-color: #ffaa00;
+            box-shadow: 0 0 15px #ffd700;
+        }
+
+        .game-image {
+            height: 90px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            border-bottom: 1px solid #ffd700;
+        }
+
+        .game-tag {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #ffd700;
+            color: #0a0f1f;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .coming-soon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 20, 36, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .game-card:hover .coming-soon {
+            opacity: 1;
+        }
+
+        .coming-soon h3 {
+            font-size: 1rem;
+            color: #ffd700;
+            text-align: center;
+        }
+
+        .game-info {
+            padding: 0.4rem;
+            text-align: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .game-info h2 {
+            font-size: 1rem;
+            color: #ffd700;
+            margin-bottom: 0.2rem;
+        }
+
+        .game-category {
+            display: inline-block;
+            padding: 0.1rem 0.4rem;
+            background: transparent;
+            border: 1px solid #ffd700;
+            border-radius: 0px;
+            font-size: 0.6rem;
+            color: #ffd700;
+            margin: 0 auto;
+            width: fit-content;
+        }
+
+        /* ===== নিচের মেনু ===== */
+        .bottom-menu {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #0f1424;
+            border-top: 3px solid #ffd700;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            z-index: 1000;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+        }
+
+        .menu-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #aaa;
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            padding: 0.3rem 1rem;
+            border-radius: 0px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .menu-item span {
+            font-size: 1.5rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .menu-item:hover {
+            color: #ffd700;
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .menu-item.active {
+            color: #ffd700;
+            border-bottom: 2px solid #ffd700;
+        }
+
+        /* ===== প্রোফাইল পপআপ ===== */
+        .profile-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+
+        .profile-popup.show {
+            display: flex;
+        }
+
+        .profile-card {
+            width: 90%;
+            max-width: 400px;
+            background: #0f1424;
+            border: 3px solid #ffd700;
+            border-radius: 0px;
+            padding: 2rem;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.5);
+            animation: popupFade 0.3s ease;
+        }
+
+        @keyframes popupFade {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #ffd70033;
+            padding-bottom: 1rem;
+        }
+
+        .profile-header h2 {
+            color: #ffd700;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .uid {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .last-login {
+            color: #ffd700;
+            font-size: 0.8rem;
+        }
+
+        .balance-box {
+            background: #1a1f35;
+            border: 2px solid #ffd700;
+            border-radius: 0px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .balance-label {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .balance-amount {
+            color: #ffd700;
+            font-size: 3.5rem;
+            font-weight: bold;
+            text-shadow: 0 0 20px #ffd700;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .action-btn {
+            background: transparent;
+            border: 2px solid #ffd700;
+            color: white;
+            padding: 0.8rem 0.5rem;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+            border-radius: 0px;
+        }
+
+        .action-btn span {
+            font-size: 1.3rem;
+        }
+
+        .action-btn:hover {
+            background: #ffd700;
+            color: #0a0f1f;
+        }
+
+        .action-btn.vip {
+            background: linear-gradient(45deg, #ffd700, #ffaa00);
+            color: #0a0f1f;
+        }
+
+        .action-btn.vip:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #ffd700;
+        }
+
+        .close-btn {
+            width: 100%;
+            background: transparent;
+            border: 2px solid #ffd700;
+            color: #ffd700;
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 0px;
+        }
+
+        .close-btn:hover {
+            background: #ffd700;
+            color: #0a0f1f;
+        }
+
+        footer {
+            background: #0f1424;
+            padding: 1rem;
+            border-top: 2px solid #ffd700;
+            margin-top: 1rem;
+            margin-bottom: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+
+        .footer-section p {
+            color: #aaa;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            width: 25px;
+            height: 25px;
+            background: #1a1f35;
+            border: 1px solid #ffd700;
+            border-radius: 0px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+        }
+
+        .copyright {
+            color: #aaa;
+            font-size: 0.7rem;
+        }
+
+        @media (max-width: 768px) {
+            .games-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-content h1 {
+                font-size: 1.2rem;
+            }
+
+            .banner-container {
+                max-width: 100%;
+            }
+
+            .profile-card {
+                padding: 1.5rem;
+            }
+
+            .balance-amount {
+                font-size: 2.5rem;
+            }
+
+            .action-btn {
+                padding: 0.6rem 0.3rem;
+                font-size: 0.8rem;
+            }
+
+            .action-btn span {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .games-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .menu-item span {
+                font-size: 1.2rem;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f1424;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ffd700;
+            border-radius: 0px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ffaa00;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="https://i.supaimg.com/d49d3bf7-603d-4c3c-994d-bf49799555ad/1206eee3-d628-4c35-909e-516a4c4d8d34.png" alt="CK667 Logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">হোম</a></li>
+                <li><a href="#">গেমস</a></li>
+                <li><a href="#">প্রোমো</a></li>
+                <li><a href="#">যোগাযোগ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>আসন্ন গেমস</h1>
+            <p>সমস্ত গেম দেখতে নিচে স্ক্রল করুন</p>
+        </div>
+    </section>
+
+    <main class="container">
+        <h2 class="section-title">CASINO 🎰</h2>
+        
+        <div class="top-banner">
+            <div class="scrolling-text-container">
+                <div class="scrolling-text">
+                    <span>⚡ হট অফার ⚡</span>
+                    <span>🎰 ৫০,০০০ টাকা বোনাস 🎰</span>
+                    <span>🎲 ফ্রি স্পিন 🎲</span>
+                    <span>⭐ ভিআইপি এক্সক্লুসিভ ⭐</span>
+                    <span>🔥 লিমিটেড সময় 🔥</span>
+                    <span>🎮 নতুন গেমস 🎮</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="banner-container">
+            <div class="banner-slider">
+                <div class="banner-slide"></div>
+                <div class="banner-slide"></div>
+                <div class="banner-slide"></div>
+            </div>
+            
+            <div class="banner-overlay">
+                <span class="banner-text">🎮 হট গেমস</span>
+                <span class="banner-badge">নতুন</span>
+            </div>
+            
+            <div class="banner-dots">
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+
+        <div class="games-grid">
+            <!-- AVIATOR -->
+            <div class="game-card" onclick="window.open('https://aviator-demo.spribegaming.com/?currency=USD&operator=demo&jurisdiction=CW&lang=EN&return_url=https%3A%2F%2Fspribe.co%2Fgames&user=30657&token=WU9HImqtf1N3j15aZ1HMVM7HDk5ApgGO', '_blank')">
+                <div class="game-image" style="background-image: url('https://i.supaimg.com/d49d3bf7-603d-4c3c-994d-bf49799555ad/e8351343-9eb3-4280-823b-7d8848bfa7d1.webp')">
+                    <div class="game-tag">NEW</div>
+                </div>
+                <div class="coming-soon">
+                    <h3>PLAY NOW</h3>
+                </div>
+                <div class="game-info">
+                    <h2>AVIATOR 🛩️</h2>
+                    <span class="game-category">নতুন</span>
+                </div>
+            </div>
+
+            <!-- JILI SPIN -->
+            <div class="game-card" onclick="window.open('https://jiligames.com/PlusIntro/49?showGame=true', '_blank')">
+                <div class="game-image" style="background-image: url('https://i.supaimg.com/d49d3bf7-603d-4c3c-994d-bf49799555ad/19ad2cb6-6d9d-4368-b58e-b917a9b8e1a8.png')">
+                    <div class="game-tag">NEW</div>
+                </div>
+                <div class="coming-soon">
+                    <h3>PLAY NOW</h3>
+                </div>
+                <div class="game-info">
+                    <h2>JILI SPIN 🎲</h2>
+                    <span class="game-category">নতুন</span>
+                </div>
+            </div>
+
+            <!-- WINGO -->
+            <div class="game-card special">
+                <div class="game-image" style="background-image: url('https://i.supaimg.com/d49d3bf7-603d-4c3c-994d-bf49799555ad/88a5088a-0695-499f-9d59-66e8f7c034b2.png')">
+                    <div 
